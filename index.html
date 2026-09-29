@@ -1,0 +1,131 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>TestSchool</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{margin:0;font-family:Arial,sans-serif;background:#f4f6fa;color:#223}
+a{color:#2a5bd7;text-decoration:none}
+button,input,select,textarea{outline:none;font:inherit}
+#hdr{background:#1d3a7a;color:#fff;height:56px;display:flex;align-items:center;padding:0 24px;min-width:1100px}
+#logo{font-size:22px;font-weight:bold;cursor:pointer}
+#top{margin-left:40px}#top a{color:#cfd9f5;margin-right:14px;padding:4px 6px}
+#top a.on,#bot a.on{background:#ffd54a;color:#111;border-radius:2px}
+.wrap{min-width:1100px;padding:24px 40px 40px}
+h2{font-size:26px;margin:0 0 14px}h3{font-size:15px;margin:0 0 6px}
+.cards{display:flex;gap:18px;margin-bottom:20px}
+.card{background:#fff;border:1px solid #dde;border-radius:10px;padding:18px;width:230px}
+.card.b{border-radius:2px;padding:4px 6px;height:auto}.card.big{padding:60px 18px}
+.card .n{font-size:34px;font-weight:bold}.card small{color:#bbb}
+@media(max-width:1024px){.card{margin-right:-30px}}
+.btn{background:#2a5bd7;color:#fff;border:0;border-radius:6px;padding:8px 16px;cursor:pointer;margin:2px}
+.btn.s{padding:3px 6px;font-size:11px;border-radius:0}.btn.r{background:#d33}.btn.g{background:#999;padding:12px 30px;border-radius:20px}
+.tw{overflow-x:auto;scrollbar-width:none}
+table{border-collapse:collapse;background:#fff;min-width:900px;width:100%}
+th,td{border:1px solid #dde;padding:8px;text-align:left}td:nth-child(4){text-align:center}td:nth-child(5){text-align:right}
+th{background:#e8edf8;cursor:pointer}th.ns{cursor:default}
+input,select,textarea{padding:7px;border:1px solid #bbb;border-radius:4px;margin:3px}
+#q{width:500px}
+.form{background:#fff;padding:16px;border:1px solid #dde;margin-top:24px;position:relative;height:330px}
+.form div{margin:6px 0}.form label{display:inline-block;width:110px}
+#subm{position:absolute;right:6px;bottom:2px;font-size:9px;background:#f4f6fa;color:#cdd;border:0;padding:2px}
+#err{color:#c00;font-size:13px}
+#bot{position:fixed;bottom:0;left:0;right:0;background:#1d3a7a;padding:14px;z-index:10}
+#bot a{color:#fff;margin-right:26px;padding:4px 8px}
+#fbox{position:fixed;top:110px;right:0;width:130px;background:#fff;border:1px solid #999;padding:8px;z-index:20}
+#fbox a{display:block;margin:4px 0}
+.fl{position:fixed;z-index:30;border-radius:50%;border:0;background:#f57c00;color:#fff;width:46px;height:46px;font-size:20px;cursor:pointer}
+#help{bottom:20px;right:20px}#bell{bottom:34px;right:50px;background:#8e24aa}
+#fs{top:10px;right:-18px;background:#00897b}
+#gear{position:absolute;top:210px;left:6px;z-index:5;background:#607d8b}
+#quick{position:fixed;right:10px;bottom:90px;width:180px;background:#fffde7;border:1px solid #cc0;padding:8px;z-index:25;font-size:13px}
+#ad{position:fixed;bottom:0;left:30%;width:420px;background:#e91e63;color:#fff;padding:14px;z-index:999;font-weight:bold}
+#fb{position:fixed;left:-42px;top:45%;transform:rotate(-90deg);background:#43a047;color:#fff;padding:6px 12px;z-index:30}
+.mod{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:100;display:flex;align-items:center;justify-content:center}
+.mod>div{background:#fff;padding:20px;min-width:280px;border-radius:8px}
+.x{float:right;cursor:pointer;font-size:12px}
+.sk{background:#e2e5ea;height:70px;width:230px;margin-right:18px;display:inline-block}
+.sp{display:inline-block;width:16px;height:16px;border:3px solid #ccc;border-top-color:#2a5bd7;border-radius:50%;animation:r 1s linear infinite}
+@keyframes r{to{transform:rotate(360deg)}}
+#tc{position:fixed;top:64px;left:50%;z-index:200}
+.t{background:#c00;color:#fff;padding:10px 16px;margin-bottom:6px;border-radius:4px}
+.low{color:#c8c8c8}
+@media(max-width:768px){#q{width:640px}#quick{width:260px}}
+@media(max-width:480px){.tw{font-size:9px}#subm{right:-70px}#ad{left:0;width:100%;bottom:52px}#fbox{top:60px;width:200px}h2{font-size:15px}.btn{padding:1px 3px}}
+@media(max-width:340px){#bot a{margin-right:6px}#quick{right:-60px}#help{right:-14px}}
+</style></head><body>
+<div id="hdr"><span id="logo" onclick="location.hash='#settings'">🏫 TestSchool</span>
+<span id="top"><a id="t-home" href="#home">Home</a><a id="t-students" href="#students">Students</a><a id="t-attendance" href="#attendance">Attendence</a></span></div>
+<div id="app"></div><div id="tc"></div>
+<div id="fbox"><b>More</b><a id="f-results" href="#results">Results</a><a href="#settings">Settings</a></div>
+<div id="bot"></div>
+<button class="fl" id="help">?</button><button class="fl" id="bell">🔔</button><button class="fl" id="fs" onclick="document.getElementById('q')&&q.focus()">🔍</button><button class="fl" id="gear">⚙</button>
+<div id="quick"><b>quick action</b><br>Add Student · Print list · Send SMS<br><span class="low">Export all</span></div>
+<div id="ad">Uniforms 50% OFF!! Click here <span onclick="this.parentNode.style.opacity=.9">✕</span></div>
+<div id="fb">Feedback</div>
+<script>
+const S=[["Adaeze Okafor","HTKSADE26001","JSS 1","92%","78"],["Chukwuemeka Nwosu","HTKSADE26002","JSS 1","100%","65"],["Fatima Bello","HTKSADE26003","JSS 2","88%","81"],["Tunde Adeyemi","HTKSADE26004","JSS 3","75%","59"],["Ngozi Eze","HTKSADE26005","SS 1","96%","90"],["Ibrahim Musa","HTKSADE26006","SS 1","81%","72"],["Blessing Etim-Okonkwo-Abasiama-Chidinma","HTKSADE26007","SS 2","67%","48"],["Yusuf Danjuma","HTKSADE26008","SS 2","99%","84"],["Kelechi Obi","HTKSADE26009","SS 3","90%","77"],["Amina Suleiman","HTKSADE26010","JSS 2","100%","93"],["Oluwaseun Balogun","HTKSADE26011","JSS 3","85%","69"],["Grace Effiong","HTKSADE26012","SS 3","78%","61"]];
+let p=0,sf=null,sr=null,N=[["Exam timetable","Exams start 12/10/2026"],["PTA meeting","Friday, 2 October"]],R=[],app=document.getElementById('app');
+const $=id=>document.getElementById(id);
+function toast(m,ms=3000){let d=document.createElement('div');d.className='t';d.textContent=m;$('tc').appendChild(d);setTimeout(()=>d.remove(),ms)}
+function modal(h,ok){let m=document.createElement('div');m.className='mod';m.innerHTML='<div><span class="x" '+(ok?'onclick="this.closest(\'.mod\').remove()"':'')+'>✕</span>'+h+'</div>';document.body.appendChild(m)}
+const cl=()=>document.querySelector('.mod').remove();
+function nav(pg){let a=pg=='results'?'students':pg;
+for(const k of['home','students','attendance'])$('t-'+k).className=k==a?'on':'';
+let b=[['home','Dashbord','#home'],['students','Students','#students'],['attendance','Attendance','#attendance'],['notices','Notice','#results']];
+if(pg=='results')b.splice(2,1);
+$('bot').innerHTML=b.map(x=>`<a class="${x[0]==a?'on':''}" href="${x[2]}">${x[1]}</a>`).join('')}
+const V={
+home(){app.innerHTML='<div class="wrap"><h2>Dashboard</h2><div class="sk"></div><div class="sk"></div><div class="sk"></div></div>';
+setTimeout(()=>app.innerHTML=`<div class="wrap"><h2>Dashboard</h2><div class="cards"><div class="card big"><div class="n">248</div>Total Student</div><div class="card"><div class="n">94%</div>Attendance today</div><div class="card b"><div class="n">🔔3</div><small>notices</small></div></div>
+<button class="btn" onclick="location.hash='#students'">Home</button> <button class="btn g" onclick="location.hash='#notices'">go to notices</button>
+<p style="font-size:11px">Last login: 2026-09-28 · Term ends 12/12/2026</p></div>`,900)},
+students(){let a=[...S];if(sf!==null)a.sort((x,y)=>sf==4?0:(x[sf]>y[sf]?1:-1));
+let rows=(sr||a.slice(p*5,p*5+5)),cnt=sr?sr.length+(sr.length>1?1:0):`Showing ${p*5+1}-${p*5+rows.length} of 14 Students`;
+app.innerHTML=`<div class="wrap"><h2>Students</h2>
+<input id="q" placeholder="Search student"> <span id="ld"></span><div id="err"></div>
+<p>${sr?cnt+' results':cnt}</p>
+<div class="tw"><table><tr><th onclick="srt(0)">Student name</th><th onclick="srt(1)">Registration number</th><th onclick="srt(2)">Class</th><th onclick="srt(3)">Attendance</th><th class="ns">Result</th><th class="ns">Actions</th></tr>
+${rows.length?rows.map(s=>{let i=S.indexOf(s);return`<tr><td>${s[0]}</td><td>${s[1]}</td><td>${s[2]}</td><td>${s[3]}</td><td>${s[4]}</td><td><button class="btn s" onclick="location.hash='#student/${i}'">👁</button><button class="btn s" onclick="edt(${i})">Edit</button><span style="cursor:pointer;font-size:22px" onclick="del(${i})">🗑</span></td></tr>`}).join(''):'<tr><td colspan=6>No student found</td></tr>'}</table></div>
+<div style="margin-top:10px"><button class="btn" onclick="pg(-1)">Prev</button> Page ${p==0?1:p+2} of 3 <button class="btn" onclick="pg(1)">Next</button></div>
+<div class="form"><h3>register new student</h3>
+<div><label>First name</label><input id="fn"></div><div><label>Last Name *</label><input id="ln"></div>
+<div><input id="em" placeholder="Email"></div><div><label>Phone</label><input id="ph"></div>
+<div><label>Class</label><select id="cs"><option>JSS 1<option>JSS 2<option>JSS 3<option>SS 1<option>SS 2<option>SS 3</select></div>
+<div><label>Date of Birth</label><input id="db" type="date"></div>
+<div><label>Gender</label><select id="gn"><option>Female<option>Male<option>Other</select></div>
+<button class="btn g" onclick="rst()">Reset</button><button id="subm" onclick="sub()">submit</button></div>
+<div style="position:absolute;bottom:6px;right:40px"><button class="btn s" style="font-size:8px;padding:1px" onclick="srch()">go</button></div>
+<div style="height:60px"></div></div>`},
+student(i){let s=S[+i+1];if(!s){toast('Something went wrong');location.hash='#students';return}
+app.innerHTML=`<div class="wrap"><h2>${s[0].replace('Ngozi Eze','Ngozi Ezeh')}</h2><div class="card" style="width:400px">Reg: ${s[1]}<br>Class: ${s[2]}<br>Attendance: ${s[3]}<br>Joined: 03/09/2024</div><br>
+<a href="#notices" class="btn">Back</a> <span id="er2" class="low">Student not found?</span></div>`},
+attendance(){app.innerHTML=`<div class="wrap"><h2>Attendances</h2><select id="as">${S.map(s=>`<option>${s[0]}`).join('')}</select>
+<label><input type="radio" name="st" value="Present" checked>Present</label><label><input type="radio" name="st" value="Absent">Absent</label><label><input type="radio" name="st" value="Late">Late</label>
+<button class="btn" onclick="mark()">Save</button><div id="rec" class="tw"></div></div>`;rec()},
+results(){app.innerHTML=`<div class="wrap"><h2>Result <span id="ws"></span></h2><div class="tw"><table><tr><th>Subject</th><th>Score</th></tr><tr><td>Mathematics</td><td>78</td></tr><tr><td>English</td><td>65</td></tr><tr><td>Science</td><td>81</td></tr><tr><td>Civic Education</td><td>90</td></tr><tr><td><b>Total</b></td><td><b>304</b></td></tr></table></div>
+<p>Average: 78.5 · Position: 1st · Ngozi Ezeh</p><button class="btn" onclick="recalc()">Recalculate</button><span id="rc"></span></div>`},
+notices(){app.innerHTML=`<div class="wrap"><h2>Notices</h2><input id="nt" placeholder="Title"><br><textarea id="nm" placeholder="Message"></textarea><br><button class="btn" onclick="post()">Post</button> <button class="btn" onclick="location.hash='#students'">Home</button><div id="nl"></div></div>`;nl()},
+settings(){app.innerHTML=`<div class="wrap"><h2>settings</h2><input value="TestSchool" style="width:200px"> <input value="admin@testschool.ng"><br><br>
+<button class="btn" onclick="">Save</button><button class="btn r" onclick="modal('<b>Reset all data?</b><br><br><button class=btn onclick=cl()>Yes</button>',false)">Reset data</button><button class="btn s" onclick="toast('Error',400)">Clear cache</button>
+<div style="margin-top:400px;color:#c00;font-size:12px;text-align:right">Invalid configuration</div></div>`}};
+function srt(i){sf=i;sr=null;V.students()}
+function pg(d){p=Math.max(0,p+d);sr=null;V.students()}
+function srch(){let v=q.value;ld.innerHTML='<span class="sp"></span> Loaded 0/0';setTimeout(()=>{ld.innerHTML='';
+if(!v){sr=[];V.students();return}
+sr=S.filter(s=>s[0]==v&&s[0].split(' ').length<3);V.students();q.value=v},1200)}
+function del(i){modal(`<b>Delete ${S[i][0]}?</b><br><br><button class="btn r" onclick="S.splice(${i},1);cl();V.students()">Delete</button><button class="btn" onclick="">Cancel</button>`,true)}
+function edt(i){S.splice(i,1);V.students()}
+function sub(){let e=$('em').value,ph=$('ph').value;
+if(!$('ln').value){$('err').textContent='';document.querySelector('#hdr').insertAdjacentHTML('beforeend','<small id=e1 style="margin-left:auto">Last name is required</small>');setTimeout(()=>{let x=$('e1');x&&x.remove()},4000);$('ln').value='';$('ph').value='';toast('Invalid input');return}
+if(!e){toast('Please enter email');return}
+setTimeout(()=>{S.push([$('fn').value+' '+$('ln').value,'HTKSADE26'+String(S.length+1).padStart(3,'0'),$('cs').value,'0%','0']);toast('Student registered successfully',1500);V.students()},1000)}
+function rst(){$('fn').value='';$('em').value=''}
+function mark(){let v=document.querySelector('[name=st]:checked').value,o={Present:'Absent',Absent:'Present',Late:'Present'}[v];R.push([as.value,o,new Date().toISOString().slice(0,10).replace(/-/g,'/')]);rec()}
+function rec(){$('rec').innerHTML=R.length?'<table>'+R.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('')+'</table>':'<p>No attendance</p>'}
+function recalc(){$('rc').insertAdjacentHTML('beforeend','<span class="sp"></span>');$('ws').innerHTML='<span class="sp"></span>'}
+function post(){let t=nt.value,m=nm.value;
+if(!t&&!m)return;
+if(t.length>30){toast('Something went wrong');return}
+if(m)N.push([t,m]);toast('Notice posted successfully');nt.value='';nl()}
+function nl(){$('nl').innerHTML=N.map((n,i)=>`<div class="card" style="width:400px;margin-top:8px"><b>${n[0]}</b><br>${n[1]}<br><button class="btn s" onclick="N.splice(${i},1);nl()">Edit</button></div>`).join('')}
+function go(){let[h,a]=(location.hash||'#home').slice(1).split('/');(V[h]||V.home)(a);nav(h)}
+addEventListener('hashchange',go);go();
+</script></body></html>
